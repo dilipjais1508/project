@@ -1,7 +1,15 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import './Navbar.css';
 
 const Navbar = () => {
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    localStorage.removeItem('isLoggedIn');
+    navigate('/login');
+  };
+
   return (
     <nav className="navbar">
       <div className="navbar-top">
@@ -27,6 +35,7 @@ const Navbar = () => {
             <svg width="18" height="18" fill="none" stroke="#222" strokeWidth="2" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 8-4 8-4s8 0 8 4"/></svg>
           </span>
           <span className="navbar-lang">ENG <span className="lang-arrow">▼</span></span>
+          <button className="navbar-logout-btn" onClick={handleLogout}>Logout</button>
         </div>
       </div>
       <div className="navbar-bottom">
