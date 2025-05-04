@@ -17,6 +17,13 @@ const MainLayout = () => (
   </div>
 );
 
+const HomeWithProducts = () => (
+  <>
+    <Home />
+    <MainLayout />
+  </>
+);
+
 function PrivateRoute({ children }) {
   const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
   return isLoggedIn ? children : <Navigate to="/login" replace />;
@@ -62,7 +69,7 @@ function AppContent() {
           path="/"
           element={
             <PrivateRoute>
-              <Home />
+              <HomeWithProducts />
             </PrivateRoute>
           }
         />
