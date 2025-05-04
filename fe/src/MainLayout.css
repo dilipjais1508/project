@@ -1,0 +1,6 @@
+.main-layout {
+  display: flex;
+  align-items: flex-start;
+  background: #f7f7f7;
+  min-height: 100vh;
+} 

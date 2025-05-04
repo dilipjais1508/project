@@ -1,0 +1,30 @@
+.sidebar {
+  width: 220px;
+  background: #fff;
+  border-right: 1px solid #e0e0e0;
+  padding: 20px 10px;
+  min-height: 100vh;
+  font-family: 'Segoe UI', Arial, sans-serif;
+}
+
+.sidebar-section {
+  margin-bottom: 18px;
+}
+
+.sidebar-title {
+  font-weight: 600;
+  font-size: 14px;
+  margin-bottom: 4px;
+  color: #222;
+}
+
+.sidebar-option {
+  font-size: 13px;
+  color: #666;
+  margin-left: 8px;
+  cursor: pointer;
+}
+
+input[type='checkbox'] {
+  margin-right: 8px;
+} 
