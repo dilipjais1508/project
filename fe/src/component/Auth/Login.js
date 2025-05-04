@@ -22,7 +22,8 @@ const Login = ({ onTabChange }) => {
         setError(data.message || 'Login failed');
         return;
       }
-      // Optionally store token or user info here
+      // Set login flag in localStorage
+      localStorage.setItem('isLoggedIn', 'true');
       navigate('/products');
     } catch (err) {
       setError('Network error');

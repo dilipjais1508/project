@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, useLocation, Navigate } from 'react-router-dom';
 import Navbar from './component/Navbar/Navbar';
 import Footer from './component/Footer/Footer';
 import Home from './component/Home/Home';
@@ -17,6 +17,16 @@ const MainLayout = () => (
   </div>
 );
 
+function PrivateRoute({ children }) {
+  const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
+  return isLoggedIn ? children : <Navigate to="/login" replace />;
+}
+
+function AuthRoute({ children }) {
+  const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
+  return isLoggedIn ? <Navigate to="/products" replace /> : children;
+}
+
 function AppContent() {
   const location = useLocation();
   const hideNavFooter = location.pathname === '/login' || location.pathname === '/signup';
@@ -24,10 +34,39 @@ function AppContent() {
     <div className="App">
       {!hideNavFooter && <Navbar />}
       <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/login" element={<Login onTabChange={tab => window.location.replace('/signup')} />} />
-        <Route path="/signup" element={<Signup onTabChange={tab => window.location.replace('/login')} />} />
-        <Route path="/products" element={<MainLayout />} />
+        <Route
+          path="/login"
+          element={
+            <AuthRoute>
+              <Login onTabChange={tab => window.location.replace('/signup')} />
+            </AuthRoute>
+          }
+        />
+        <Route
+          path="/signup"
+          element={
+            <AuthRoute>
+              <Signup onTabChange={tab => window.location.replace('/login')} />
+            </AuthRoute>
+          }
+        />
+        <Route
+          path="/products"
+          element={
+            <PrivateRoute>
+              <MainLayout />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/"
+          element={
+            <PrivateRoute>
+              <Home />
+            </PrivateRoute>
+          }
+        />
+        {/* Add more protected routes as needed */}
       </Routes>
       {!hideNavFooter && <Footer />}
     </div>
